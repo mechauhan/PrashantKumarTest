@@ -11,21 +11,41 @@ const Home = () => {
   const [mobile, setmobile] = useState('');
   const [jobType, setjobType] = useState('');
 
+  const usersData = useSelector((state) => state.allUsersData);
+
+  let { loading, list } = usersData;
+  console.log('list', list, loading);
+
+  const registerChange = useSelector((state) => state.registerData);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getUsers());
   }, []);
+  useEffect(() => {
+    dispatch(getUsers());
+    console.log('list222', list);
+  }, [registerChange]);
 
+  const imageChange = (e) => {
+    console.log(e.target.files[0]);
+    setimage(e.target.files[0]);
+  };
   const submit = (e) => {
     e.preventDefault();
+    console.log(name, email, DOB, image, jobType);
     if (name && email && DOB && image && jobType != '') {
       dispatch(register({ name, email, DOB, mobile, image, jobType }));
+      setName('');
+      setemail('');
+      setDOB('');
+      setimage('');
+      setmobile('');
+      setjobType('');
     } else {
       alert('Please insert all fields');
     }
-
-    console.log('hi');
   };
   return (
     <div className="App">
@@ -75,7 +95,7 @@ const Home = () => {
               >
                 <input type="radio" value="FT" name="jt" /> FT
                 <input type="radio" value="PT" name="jt" /> PT
-                <input type="radio" value="Consuktant" name="jt" /> Consultant
+                <input type="radio" value="Consultant" name="jt" /> Consultant
               </div>
             </div>
           </div>
@@ -87,8 +107,8 @@ const Home = () => {
               </div>
               <input
                 type="file"
-                value={image}
-                onChange={(e) => setimage(e.target.file)}
+                // value={image}
+                onChange={(e) => imageChange(e)}
                 className="form-control"
                 style={{ width: '200px' }}
               />
@@ -99,7 +119,7 @@ const Home = () => {
               <input
                 type="email"
                 value={email}
-                onChange={(e) => setemail(e.target.file)}
+                onChange={(e) => setemail(e.target.value)}
                 className="form-control"
                 style={{ width: '200px' }}
               />
@@ -110,7 +130,7 @@ const Home = () => {
               <input
                 type="date"
                 value={DOB}
-                onChange={(e) => setDOB(e.target.file)}
+                onChange={(e) => setDOB(e.target.value)}
                 className="form-control"
                 style={{ width: '200px' }}
               />
@@ -139,14 +159,24 @@ const Home = () => {
               <th>Job Type</th>
               <th>Action</th>
             </tr>
-            <tr>
-              <td>Name</td>
-              <td>Email</td>
-              <td>Mobile</td>
-              <td>DOB</td>
-              <td>Job Type</td>
-              <td>Action</td>
-            </tr>
+            {loading ? (
+              <></>
+            ) : (
+              <>
+                {list?.data?.map((value, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{value.name}</td>
+                      <td>{value.email}</td>
+                      <td>{value.mobile}</td>
+                      <td>{value.dob}</td>
+                      <td>{value.jobType}</td>
+                      <td>Action</td>
+                    </tr>
+                  );
+                })}
+              </>
+            )}
           </tbody>
         </table>
       </div>

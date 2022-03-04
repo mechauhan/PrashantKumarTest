@@ -14,6 +14,7 @@ exports.saveData = async (model, req) => {
     mobile: req.body.mobile,
     dob: req.body.dob,
     profilePic: imagePath,
+    jobType: req.body.jobType,
   });
 };
 
