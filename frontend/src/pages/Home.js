@@ -57,7 +57,7 @@ const Home = () => {
               >
                 <input type="radio" value="FT" name="jt" /> FT
                 <input type="radio" value="PT" name="jt" /> PT
-                <input type="radio" value="Consuktant" name="jt" /> Consuktant
+                <input type="radio" value="Consuktant" name="jt" /> Consultant
               </div>
             </div>
           </div>
@@ -69,6 +69,8 @@ const Home = () => {
               </div>
               <input
                 type="file"
+                value={image}
+                onChange={(e) => setimage(e.target.file)}
                 className="form-control"
                 style={{ width: '200px' }}
               />
@@ -78,6 +80,8 @@ const Home = () => {
               <div style={{ minWidth: '200px', display: 'flex' }}>Email Id</div>
               <input
                 type="email"
+                value={email}
+                onChange={(e) => setemail(e.target.file)}
                 className="form-control"
                 style={{ width: '200px' }}
               />
@@ -87,6 +91,8 @@ const Home = () => {
               <div style={{ minWidth: '200px', display: 'flex' }}>DOB</div>
               <input
                 type="date"
+                value={DOB}
+                onChange={(e) => setDOB(e.target.file)}
                 className="form-control"
                 style={{ width: '200px' }}
               />
@@ -98,7 +104,7 @@ const Home = () => {
               style={{ width: '200px', float: 'right' }}
               onClick={(e) => submit(e)}
             >
-              Add / Update
+              + Add / Update
             </button>
           </div>
         </div>

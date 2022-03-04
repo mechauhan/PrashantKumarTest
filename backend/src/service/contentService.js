@@ -17,36 +17,13 @@ exports.saveData = async (model, req) => {
   });
 };
 
-exports.updateData = async (model, req) => {
-  let { contentId } = req.params;
-  let contentData = await db.findOne(model, { _id: contentId });
-  let exerciseName = req.body.exerciseName || contentData.exerciseName;
-  let imageMap = req.body.images;
-  let videoMap = req.body.videos;
-
-  if (req.files) {
-    imageMap = req.files.images.map((m) => {
-      let image = LOCALIMAGEPATH + m.filename;
-      return image;
-    });
-    videoMap = req.files.images.map((m) => {
-      let image = LOCALIMAGEPATH + m.filename;
-      return image;
-    });
-  }
-  return await db.findAndUpdate(
-    model,
-    { _id: contentId },
-    { images: imageMap, exerciseName: exerciseName, videos: videoMap },
-    { new: true }
-  );
-};
+exports.updateData = async (model, req) => {};
 
 exports.deleteData = async (model, req) => {
-  let { contentId } = req.params;
-  return await db.remove(model, { _id: contentId });
+  let { id } = req.params;
+  return await db.remove(model, { _id: id });
 };
 
 exports.getAll = async (model, req) => {
-  return db.getData(model, {});
+  return await model.find({});
 };
