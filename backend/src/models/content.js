@@ -7,7 +7,7 @@ const contentSchema = new mongoose.Schema(
     email: String,
     mobile: String,
     dob: Date,
-    jobType: String,
+    jobType: { type: String, enum: ['FT', 'PT', 'Consultant'] },
   },
   {
     versionKey: false,

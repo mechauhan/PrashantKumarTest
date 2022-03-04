@@ -46,3 +46,7 @@ exports.deleteData = async (model, req) => {
   let { contentId } = req.params;
   return await db.remove(model, { _id: contentId });
 };
+
+exports.getAll = async (model, req) => {
+  return db.getData(model, {});
+};

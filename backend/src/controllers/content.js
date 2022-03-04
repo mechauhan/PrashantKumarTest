@@ -14,3 +14,8 @@ exports.createContent = catchAsync(async (req, res) => {
 
   sendResponse(res, data, 'content saved');
 });
+
+exports.getAll = catchAsync(async (req, res) => {
+  let data = await service.getAll(contentModel, req);
+  sendResponse(res, data, 'All users');
+});
