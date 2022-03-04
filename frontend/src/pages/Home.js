@@ -14,7 +14,6 @@ const Home = () => {
   const usersData = useSelector((state) => state.allUsersData);
 
   let { loading, list } = usersData;
-  console.log('list', list, loading);
 
   const registerChange = useSelector((state) => state.registerData);
 
@@ -27,7 +26,6 @@ const Home = () => {
   }, []);
   useEffect(() => {
     dispatch(getUsers());
-    console.log('list222', list);
   }, [registerChange, deleteChange]);
 
   const imageChange = (e) => {
