@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { register, getUsers } from '../actions/userAction';
 
 const Home = () => {
   const [name, setName] = useState('');
@@ -6,6 +9,12 @@ const Home = () => {
   const [DOB, setDOB] = useState('');
   const [image, setimage] = useState('');
   const [mobile, setmobile] = useState('');
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUsers());
+  }, []);
 
   const submit = (e) => {
     e.preventDefault();

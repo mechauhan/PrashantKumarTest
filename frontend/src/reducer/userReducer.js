@@ -11,13 +11,13 @@ function registerReducer(state = { userInfo: [] }, action) {
   }
 }
 
-function getUsersReducer(state = { userInfo: [] }, action) {
+function getUsersReducer(state = { list: [] }, action) {
   switch (action.type) {
-    case 'GET_USERs_REQUEST':
+    case 'GET_USERS_REQUEST':
       return { loading: true };
-    case 'GET_USERs_SUCCESS':
-      return { loading: false, userInfo: action.payload };
-    case 'GET_USERs_FAIL':
+    case 'GET_USERS_SUCCESS':
+      return { loading: false, list: action.payload };
+    case 'GET_USERS_FAIL':
       return { loading: false, error: action.payload };
     default:
       return state;
