@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { register, getUsers } from '../actions/userAction';
+import { register, getUsers, deleteUser } from '../actions/userAction';
 
 const Home = () => {
   const [name, setName] = useState('');
@@ -18,6 +18,8 @@ const Home = () => {
 
   const registerChange = useSelector((state) => state.registerData);
 
+  const deleteChange = useSelector((state) => state.removedUser);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -26,7 +28,7 @@ const Home = () => {
   useEffect(() => {
     dispatch(getUsers());
     console.log('list222', list);
-  }, [registerChange]);
+  }, [registerChange, deleteChange]);
 
   const imageChange = (e) => {
     console.log(e.target.files[0]);
@@ -46,6 +48,9 @@ const Home = () => {
     } else {
       alert('Please insert all fields');
     }
+  };
+  const deleteThisUser = (id) => {
+    dispatch(deleteUser(id));
   };
   return (
     <div className="App">
@@ -171,7 +176,14 @@ const Home = () => {
                       <td>{value.mobile}</td>
                       <td>{value.dob}</td>
                       <td>{value.jobType}</td>
-                      <td>Action</td>
+                      <td>
+                        <button
+                          className="btn"
+                          onClick={() => deleteThisUser(value._id)}
+                        >
+                          DELETE
+                        </button>
+                      </td>
                     </tr>
                   );
                 })}

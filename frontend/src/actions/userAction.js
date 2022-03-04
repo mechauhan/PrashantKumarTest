@@ -43,4 +43,22 @@ const getUsers = () => async (dispatch, getState) => {
   }
 };
 
-export { register, getUsers };
+const deleteUser = (id) => async (dispatch, getState) => {
+  dispatch({
+    type: 'DELETE_USER_REQUEST',
+    payload: {},
+  });
+  try {
+    let { data } = await axios.delete(`/removeUser/${id}`);
+    dispatch({
+      type: 'DELETE_USER_SUCCESS',
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: 'DELETE_USER_FAIL',
+    });
+  }
+};
+
+export { register, getUsers, deleteUser };

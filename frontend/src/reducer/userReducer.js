@@ -24,4 +24,17 @@ function getUsersReducer(state = { list: [] }, action) {
   }
 }
 
-export { registerReducer, getUsersReducer };
+function removeUserReducer(state = { list: [] }, action) {
+  switch (action.type) {
+    case 'DELETE_USER_REQUEST':
+      return { loading: true };
+    case 'DELETE_USER_SUCCESS':
+      return { loading: false, list: action.payload };
+    case 'DELETE_USER_FAIL':
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+}
+
+export { registerReducer, getUsersReducer, removeUserReducer };
