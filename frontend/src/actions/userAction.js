@@ -1,21 +1,29 @@
 import axios from './network';
-const register =
-  (firstName, lastName, email, mobile, password) => async (dispatch) => {
+const register = (info) => async (dispatch) => {
+  dispatch({
+    type: 'USER_REGISTER_REQUEST',
+    payload: {},
+  });
+  try {
+    let data = new FormData();
+    data.append('name', info.name);
+    data.append('image', info.image);
+    data.append('mobile', info.mobile);
+    data.append('email', info.email);
+    data.append('dob', info.DOB);
+    data.append('jobType', info.jobType);
+    let { data } = await axios.post('/adduser', data);
+
     dispatch({
-      type: 'USER_REGISTER_REQUEST',
-      payload: { firstName, lastName, email, mobile, password },
+      type: 'USER_REGISTER_SUCCESS',
+      payload: data,
     });
-    try {
-      dispatch({
-        type: 'USER_REGISTER_SUCCESS',
-        payload: { firstName, lastName, email, mobile, password },
-      });
-    } catch (error) {
-      dispatch({
-        type: 'USER_REGISTER_FAIL',
-      });
-    }
-  };
+  } catch (error) {
+    dispatch({
+      type: 'USER_REGISTER_FAIL',
+    });
+  }
+};
 
 const getUsers = () => async (dispatch, getState) => {
   dispatch({

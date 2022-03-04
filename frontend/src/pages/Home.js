@@ -9,6 +9,7 @@ const Home = () => {
   const [DOB, setDOB] = useState('');
   const [image, setimage] = useState('');
   const [mobile, setmobile] = useState('');
+  const [jobType, setjobType] = useState('');
 
   const dispatch = useDispatch();
 
@@ -18,6 +19,12 @@ const Home = () => {
 
   const submit = (e) => {
     e.preventDefault();
+    if (name && email && DOB && image && jobType != '') {
+      dispatch(register({ name, email, DOB, mobile, image, jobType }));
+    } else {
+      alert('Please insert all fields');
+    }
+
     console.log('hi');
   };
   return (
@@ -63,6 +70,8 @@ const Home = () => {
                 className="btn-group"
                 role="group"
                 aria-label="Basic example"
+                value={jobType}
+                onChange={(e) => setjobType(e.target.value)}
               >
                 <input type="radio" value="FT" name="jt" /> FT
                 <input type="radio" value="PT" name="jt" /> PT
